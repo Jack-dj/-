@@ -1,0 +1,53 @@
+//广度优先
+#include <iostream>
+#include <queue>
+#include <map>
+
+using namespace std;
+
+typedef struct Node
+{
+	long long x,step;
+}Node;
+int main()
+{
+	long long x = 0;
+	cin >> x;
+	Node n;
+	queue<Node> q;
+	map<long long, int> m;
+	n.x = x;
+	n.step = 0;
+	q.push(n);
+	m[x] = 1;
+	long long res = -1;
+	while(!q.empty()&& n.step<=100000)
+	{
+		n = q.front();
+		q.pop();
+		if(n.x%1000000007 == 0)
+		{
+			res = n.step;
+			break;//找到了
+		}
+		long long x1 = (4*n.x+3)%1000000007, x2 = (8*n.x+7)%1000000007;
+		if(m.count(x1)==0)
+		{
+			n.x = x1;
+			n.step++;
+			q.push(n);
+			m[x1] = 1;
+			n.step--;
+		}
+		if(m.count(x2) == 0)
+		{
+			n.x = x2;
+			n.step++;
+			q.push(n);
+			m[x2] = 1;
+		}
+	}
+	cout << res << endl;
+	system("pause");
+	return 0;
+}
