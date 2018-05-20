@@ -8,10 +8,8 @@ A = “aba”，B = “b”。这里有4种把B插入A的办法：
 * 在第二个字母'a'之后 "abab" 不是回文
 所以满足条件的答案为2
 */
-
 #include <iostream>
 #include <string>
-
 using namespace std;
 int isH(string s)
 {
