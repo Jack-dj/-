@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+class Solution {
+public:
+	void replaceSpace(char *str,int length) {
+		if(str == NULL)
+			return;
+		int num = 0,i = 0;//空格数
+		for(i = 0; i < length; i++)
+		{
+			if(str[i] == ' ')
+				num++;
+		}
+		for(int j = length; j >= 0; j--)
+		{
+			if(str[j] != ' ')
+			{
+				str[j+2*num] = str[j];
+			}
+			else if(str[j] == ' ')
+			{
+				num--;
+				str[j+2*num] = '%';
+				str[j+2*num+1] = '2';
+				str[j+2*num+2] = '0';
+			}
+		}
+		puts(str);
+	}
+};
+
+int main()
+{
+	char s[100];
+	gets(s);
+	Solution su;
+	su.replaceSpace(s,strlen(s));
+	system("pause");
+	return 0;
+}
