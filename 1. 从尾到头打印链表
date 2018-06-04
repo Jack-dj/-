@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stack>
+using namespace std;
+
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+	val(x), next(NULL) {}
+};
+
+class Solution {
+public:
+	vector<int> printListFromTailToHead(ListNode* head) {
+		vector<int> vec;
+		stack<int> st;
+		if(head != NULL)
+		{
+			if(head->next != NULL)
+			{
+				vec = printListFromTailToHead(head->next);
+			}
+			vec.push_back(head->val);
+		}
+		return vec;
+	}
+};
+int main()
+{
+	ListNode *head = (ListNode*)malloc(sizeof(ListNode));
+	head->val = 0;
+	int i = 3;
+	ListNode *p = new ListNode(1);
+	head->next = p;
+	p->next = NULL;
+	while(i)
+	{
+		ListNode *t = new ListNode(5-i);
+		p->next = t;
+		p = p->next;
+		i--;
+	}
+	Solution s;
+	vector<int> vec;
+	vec = s.printListFromTailToHead(head);
+	for(int i = 0; i < vec.size(); i++)
+		cout << vec[i];
+	system("pause");
+	return 0;
+}
