@@ -1,0 +1,79 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+//Definition for binary tree
+struct TreeNode 
+{
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+ 
+class Solution {
+public:
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+		if(pre.empty()||vin.empty())
+			return NULL;
+		int index = 0; //索引，保存根节点在中序中的位置
+		for(int i = 0; i < vin.size(); i++)
+		{
+			if(pre[0] == vin[i])
+			{
+				index = i;
+				break;
+			}
+		}
+		TreeNode *node = new TreeNode(pre[0]);
+		//此时中序遍历的根节点的左边都是左子树，右边都是右子树
+		vector<int> pre_left, pre_right, vin_left, vin_right;
+		for(int i = 0; i < index; i++)
+		{
+			pre_left.push_back(pre[i+1]);
+			vin_left.push_back(vin[i]);
+		}
+
+		for(int j = index+1; j < vin.size(); j++)
+		{
+			pre_right.push_back(pre[j]);
+			vin_right.push_back(vin[j]);
+		}
+		node->left = reConstructBinaryTree(pre_left, vin_left);
+		node->right = reConstructBinaryTree(pre_right, vin_right);
+		return node;
+    }
+};
+//后序遍历测试正确性
+void postOrder(TreeNode *p)
+{
+	if(p!=NULL)
+	{
+		postOrder(p->left);
+		postOrder(p->right);
+		cout << p->val << " ";
+	}
+}
+int main()
+{
+	vector<int> pre;
+	vector<int> vin;
+	int temp;
+	for(int i = 0; i < 8; i++)
+	{
+		cin >> temp;
+		pre.push_back(temp);
+	}
+	for(int i = 0; i < 8; i++)
+	{
+		cin >> temp;
+		vin.push_back(temp);
+	}
+	Solution su;
+	TreeNode *p = NULL;
+	p = su.reConstructBinaryTree(pre, vin);
+	
+	//后序遍历一下测试正确性
+	postOrder(p);
+	system("pause");
+	return 0;
+}
