@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+class Solution {
+public:
+	int jumpFloorII(int number) {
+		/*
+    int mytime;
+		vector<int> vec;
+		vec.push_back(1);
+		vec.push_back(1);
+		vec.push_back(2);
+		for(int i = 3; i <= number; i++)
+		{
+			mytime = 2*jumpFloorII(vec[i-1]);
+			vec.push_back(mytime);
+		}
+		return vec[number];
+    */
+    
+		//上面方法递归，下面简化方法
+		int i1 = 1;
+		int i2 = 0;
+		for(int i = 2; i <= number; i++)
+		{
+			i2 = 2*i1;
+
+			i1 = i2;
+		}
+		return i1;
+	}
+};
+int main()
+{
+	Solution su;
+	int n;
+	cin >> n;//跳n级台阶
+	int x = su.jumpFloorII(n);
+	cout << x << endl;
+	system("pause");
+	return 0;
+}
